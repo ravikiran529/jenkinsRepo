@@ -4,7 +4,9 @@ pipeline {
    }
    stages {
        stage('Execute shell') {
-            sh "echo 'Hello,This is test for webhook'"
+            steps {
+                  sh "echo 'Hello,This is test for webhook'"
+            }      
        }
    }    
 }
