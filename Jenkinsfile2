@@ -1,0 +1,10 @@
+pipeline {
+   agent {
+       label 'slave1'
+   }
+   stages {
+       stage('Execute shell') {
+            sh "echo 'Hello,This is test for webhook'"
+       }
+   }    
+}
