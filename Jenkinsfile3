@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/ravikiran529/maven-java-project.git'
+        git 'https://github.com/ravikiran529/Maven-Java-Project.git'
       }
     }
     stage('Building image') {
