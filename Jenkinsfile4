@@ -1,0 +1,41 @@
+pipeline {
+   environment {
+    registry = "ravikiran529/project"
+    registryCredential = 'docker_cred'
+    dockerImage = ''
+  }
+    agent {
+        label 'slave1'
+    }
+    stages {
+        stage('Cloning') {
+            steps {
+                git 'https://github.com/ravikiran529/Maven-Java-Project.git'
+            }
+        }
+        stage('Build & package') {
+            steps {
+                withDockerContainer(args: '-v /Maven-Java-Project:/project -v $HOME/.m2:/root/.m2', image: 'maven:3-alpine') {
+                    sh 'mvn clean package'
+                }
+            }
+        }
+        stage('Build docker image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
+      }
+    }
+    stage('Deploy Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+
+  }
+}    
