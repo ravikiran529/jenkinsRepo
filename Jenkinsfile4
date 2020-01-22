@@ -36,6 +36,10 @@ pipeline {
         }
       }
     }
-
+    stage('Deploy image to K8s'){
+      steps{
+         sh'kubectl apply -f deployment.yml'
+      }
+    }  
   }
 }    
