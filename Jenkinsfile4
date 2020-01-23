@@ -38,7 +38,13 @@ pipeline {
     }
     stage('Deploy image to K8s'){
       steps{
-         sh'kubectl apply -f deployment.yml'
+         // sh'kubectl apply -f deployment.yml'
+                  // or
+           kubernetesDeploy(
+                 configs: 'deployment.yml',
+                 kubeconfigId: 'K8S-CONFIG',
+                 enableConfigSubstitution: true
+            )
       }
     }  
   }
